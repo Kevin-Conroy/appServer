@@ -13,7 +13,7 @@ const apps = require("./app-data.js");
 
 
 app.get('/apps', (req, res) => {
-    const { search = "", sort } = req.query;
+    const { genre = "", sort } = req.query;
   
     if (sort) {
       if (!['rating', 'app'].includes(sort)) {
@@ -23,12 +23,12 @@ app.get('/apps', (req, res) => {
       }
     }
   
-    let results = apps
-          .filter(app =>
-              app
-                .App
-                .toLowerCase()
-                .includes(search.toLowerCase()));
+    let results = apps.filter(app =>
+            app
+              .Genres
+              .toLowerCase()
+              .includes(genre.toLowerCase()));
+
   
     if (sort) {
       results
@@ -39,4 +39,8 @@ app.get('/apps', (req, res) => {
   
     res
       .json(results);
+  });
+
+  app.listen(8000, () => {
+    console.log('Express server is listening on port 8000!');
   });
